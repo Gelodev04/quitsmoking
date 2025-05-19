@@ -6,10 +6,11 @@ import { Menu } from "./icons/Menu";
 import { Trash } from "./icons/Trash";
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLoginModal } from "@/contexts/LoginModalContext";
 
 export const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
+  const { showLoginModal, setShowLoginModal } = useLoginModal();
   const {
     user,
     signInWithGoogle,
@@ -182,7 +183,7 @@ export const Navbar = () => {
               </div>
             ) : (
               <button
-                onClick={() => setShowLoginModal((prev) => !prev)}
+                onClick={() => setShowLoginModal(true)}
                 className="cursor-pointer"
               >
                 <Trash />
@@ -223,7 +224,7 @@ export const Navbar = () => {
 
       {/* Login Modal */}
       {showLoginModal && (
-        <div className="fixed   z-50 right-0 top-0">
+        <div className="fixed z-50 right-0 top-0">
           <div className="bg-white w-[90%] mx-auto max-w-sm rounded-xl shadow-xl p-6 relative slide-fade mt-20">
             <button
               onClick={() => setShowLoginModal(false)}
@@ -238,7 +239,10 @@ export const Navbar = () => {
               {loginOptions.map((option, index) => (
                 <button
                   key={index}
-                  onClick={option.onClick}
+                  onClick={() => {
+                    option.onClick();
+                    setShowLoginModal(false);
+                  }}
                   className="relative w-full px-4 py-3 border border-[#D0D5DD] rounded-md text-[14px] text-[#344054] hover:bg-gray-200 cursor-pointer"
                 >
                   <span className="absolute left-4 top-1/2 -translate-y-1/2">

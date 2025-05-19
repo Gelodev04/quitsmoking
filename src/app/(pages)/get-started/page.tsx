@@ -164,7 +164,7 @@ export default function GetStartedPage() {
               negative emotion cements the lesson.
             </p>
           </div>
-          <div className="mt-5 text-center bg-[#EEEEEE] py-5 px-4 rounded md:pb-[1.5rem]">
+          <div className="mt-5 text-center bg-[#EEEEEE] py-5 px-4 rounded md:pb-[1.5rem] ">
             {error && (
               <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">
                 {error}
@@ -172,7 +172,7 @@ export default function GetStartedPage() {
             )}
             <div className="flex justify-center items-center">
               <span className="text-[20px] md:text-[24px] text-[#00B894]">
-                $10.00
+                $10 or your amount
               </span>
               <div className="relative w-[100px] ml-2">
                 <input
@@ -185,7 +185,7 @@ export default function GetStartedPage() {
                 </div>
               </div>
             </div>
-            <p className="text-[11px] md:text-[16px] text-black">
+            <p className="text-[11px] md:text-[16px] text-black mb-5">
               Let the sting sink in and cement that negative feeling.
             </p>
             {isProcessingPayment ? (

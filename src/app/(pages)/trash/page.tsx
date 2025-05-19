@@ -168,7 +168,7 @@ export default function TrashPage() {
               <>
                 <div className="flex justify-center items-center mb-5">
                   <span className="text-[20px] md:text-[24px] text-[#00B894]">
-                    ${customAmount.toFixed(2)}
+                    $10 or your amount
                   </span>
                   <div className="relative w-[100px] ml-2">
                     <input
