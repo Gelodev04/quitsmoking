@@ -13,6 +13,7 @@ type AuthContextType = {
   signInWithTwitter: () => Promise<void>;
   signInWithLinkedIn: () => Promise<void>;
   signOut: () => Promise<void>;
+  deleteAccount: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -125,6 +126,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const deleteAccount = async () => {
+    try {
+      if (!user) throw new Error("No user logged in");
+
+      const response = await fetch("/api/delete-account", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to delete account");
+      }
+
+      // Sign out and redirect to home
+      await signOut();
+      router.push("/");
+    } catch (error) {
+      console.error("Error deleting account:", error);
+      throw error;
+    }
+  };
+
   const value = {
     user,
     loading,
@@ -133,6 +159,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     signInWithTwitter,
     signInWithLinkedIn,
     signOut,
+    deleteAccount,
   };
 
   return (

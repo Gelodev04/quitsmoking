@@ -80,22 +80,26 @@ export default function GetStartedPage() {
           </p>
         </div>
         {/* STEP 1 */}
-        <div className="bg-white rounded-[10px] px-3 md:px-4 py-3 md:py-5 mt-8 md:mt-10 ">
+        <div className="bg-white rounded-[10px] px-3 md:px-4 py-3 md:py-5 mt-8 md:mt-10">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <h6 className="font-bold text-[18px] md:text-[30px]">Step 1</h6>
-              {paymentStatus.initialPaymentPaid && (
-                <div className="flex items-center gap-2 text-[#00B894]">
-                  <Image
-                    src="/images/check.png"
-                    alt="completed"
-                    width={20}
-                    height={20}
-                    className="size-5"
-                  />
-                  <span className="text-[14px] md:text-[16px]">Completed</span>
-                </div>
-              )}
+              <div className="h-[24px]">
+                {paymentStatus.initialPaymentPaid && (
+                  <div className="flex items-center gap-2 text-[#00B894]">
+                    <Image
+                      src="/images/check.png"
+                      alt="completed"
+                      width={20}
+                      height={20}
+                      className="size-5"
+                    />
+                    <span className="text-[14px] md:text-[16px]">
+                      Completed
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
             <p className="font-bold text-[14px] md:text-[20px]">
               Make the Commitment
@@ -108,45 +112,49 @@ export default function GetStartedPage() {
               the trash as your first financial penalty.
             </p>
           </div>
-          {!paymentStatus.initialPaymentPaid && (
-            <div className="mt-5 text-center bg-[#EEEEEE] py-5 px-4 rounded md:pb-[1.5rem]">
-              {error && (
-                <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">
-                  {error}
-                </div>
-              )}
-              <span className="text-[20px] md:text-[24px] text-[black]">
-                $29.99
-              </span>
-              <p className="text-[11px] md:text-[16px] text-black">
-                Feel the sting; lock that negative emotion in.
-              </p>
-              {isProcessingPayment ? (
-                <div className="mt-4 flex flex-col items-center gap-2">
-                  <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#00B894]"></div>
-                  <p className="text-sm text-gray-600">Processing payment...</p>
-                </div>
-              ) : (
-                <PaypalButton
-                  amount={29.99}
-                  onError={(error) => {
-                    setError(error);
-                    setIsProcessingPayment(false);
-                  }}
-                  onSuccess={() => {
-                    setIsProcessingPayment(true);
-                    setTimeout(() => {
-                      setPaymentStatus((prev) => ({
-                        ...prev,
-                        initialPaymentPaid: true,
-                      }));
+          <div className="mt-5 text-center bg-[#EEEEEE] py-5 px-4 rounded md:pb-[1.5rem]">
+            {!paymentStatus.initialPaymentPaid && (
+              <>
+                {error && (
+                  <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">
+                    {error}
+                  </div>
+                )}
+                <span className="text-[20px] md:text-[24px] text-[black]">
+                  $29.99
+                </span>
+                <p className="text-[11px] md:text-[16px] text-black">
+                  Feel the sting; lock that negative emotion in.
+                </p>
+                {isProcessingPayment ? (
+                  <div className="mt-4 flex flex-col items-center gap-2">
+                    <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#00B894]"></div>
+                    <p className="text-sm text-gray-600">
+                      Processing payment...
+                    </p>
+                  </div>
+                ) : (
+                  <PaypalButton
+                    amount={29.99}
+                    onError={(error) => {
+                      setError(error);
                       setIsProcessingPayment(false);
-                    }, 1500); // Add a small delay to show the processing state
-                  }}
-                />
-              )}
-            </div>
-          )}
+                    }}
+                    onSuccess={() => {
+                      setIsProcessingPayment(true);
+                      setTimeout(() => {
+                        setPaymentStatus((prev) => ({
+                          ...prev,
+                          initialPaymentPaid: true,
+                        }));
+                        setIsProcessingPayment(false);
+                      }, 1500);
+                    }}
+                  />
+                )}
+              </>
+            )}
+          </div>
         </div>
         {/* STEP2 */}
         <div className="bg-white rounded-[10px] px-3 md:px-4 py-3 md:py-5 mt-8 md:mt-10">
