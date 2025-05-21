@@ -49,6 +49,10 @@ button {
   z-index: 1;
 }
 
+.bg-opacity-50 {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
 /* Ensure content inside stays above the overlay */
 .background > * {
   position: relative;
